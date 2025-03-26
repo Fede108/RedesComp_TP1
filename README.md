@@ -10,9 +10,10 @@
 **Nombre del grupo : Kiritoro** 
 
 **Integrantes**
-- Luciano Tratcha
 - Federico Cechich
 - Juan ferrero
+- Luciano Tratcha
+
 
 **27 de Marzo de 2025**
 
