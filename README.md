@@ -11,8 +11,8 @@
 
 **Integrantes**
 - Federico Cechich
-- Juan ferrero
-- Luciano Tratcha
+- Juan Manuel Ferrero
+- Luciano Tratchta
 
 
 **27 de Marzo de 2025**
