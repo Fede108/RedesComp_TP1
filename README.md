@@ -11,7 +11,7 @@
 
 **Integrantes**
 - Federico Cechich
-- Puto de Mierda
+- Juan Manuel Ferrero
 - Luciano Trachta
 
 
