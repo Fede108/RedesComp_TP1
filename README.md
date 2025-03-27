@@ -103,4 +103,44 @@ A continuación, se muestra la estructura de la cabecera de un paquete IPv4:
 
 ![image](https://github.com/user-attachments/assets/8e63f1a5-af18-4ab1-8ad6-012eeffe8763)
 
+### IPv6
+El motivo que ha conducido a la adopción de una nueva versión ha sido la limitación impuesta por el campo de dirección de 32 bits en IPv4. Algunas de las razones por las que es inadecuado utilizar estas direcciones de 32 bits son las siguientes:
+- **Espacio de direcciones limitado**:
+IPv4 usa un campo de 32 bits, lo que permite alrededor de 4.000 millones de direcciones. Aunque parecía suficiente en un principio, con el crecimiento explosivo de dispositivos conectados y la proliferación de redes (como múltiples LAN y redes inalámbricas), ese número se quedó corto.
 
+- **Ineficiencia en la asignación**:
+La estructura en dos niveles de las direcciones en IPv4 (número de red y número de host) obliga a asignar un número de red completo a cada red, incluso si no se utiliza completamente el rango de direcciones disponible en esa red, desperdiciando así parte del espacio.
+
+- **Demanda creciente**:
+El incremento en el uso de TCP/IP en nuevos ámbitos, como dispositivos electrónicos de puntos de venta, receptores de televisión por cable y la posibilidad de que cada computador tenga múltiples direcciones IP, elevó aún más la necesidad de contar con más direcciones.
+
+- **Nuevos requerimientos técnicos**:
+Además de ampliar el espacio de direcciones, era necesario incorporar mejoras en la configuración de red, flexibilidad en el encaminamiento y funcionalidades adicionales para gestionar el tráfico de forma más eficiente.
+
+Además de ampliar el espacio de direcciones (pasando de 32 a 128 bits), se incorporaron mejoras en la configuración de red, las opciones se trasladaron a cabeceras de extension separadas, se logro una mayor flexibilidad de direccionamiento al introducir las direcciones anycast y funcionalidades adicionales como permitir la asignación dinámica de direcciones.
+
+- **Cabecera fija de 40 octetos:**  
+  Es la única obligatoria y contiene la información esencial para el envío del paquete.
+
+- **Cabeceras de extensión:**  
+  Se ubican entre la cabecera IPv6 y la cabecera de la capa de transporte. Entre ellas se incluyen:
+  
+  - **Opciones salto a salto:** Procesadas en cada nodo.
+  
+  - **Encaminamiento:** Permite especificar rutas alternativas.
+  
+  - **Fragmentación:** Maneja la división y reensamblado de paquetes.
+  
+  - **Autenticación y Encapsulamiento de carga de seguridad:** Proveen integridad, autenticación y privacidad.
+  
+  - **Opciones para destino:** Opciones específicas para ser evaluadas en el nodo destino.
+    
+### Cabecera IPv6
+
+Paquete IPv6 con un ejemplar de cada cabecera:
+
+![image](https://github.com/user-attachments/assets/ecdc0057-0a48-4624-b674-0845cd53394a)
+
+La cabecera IPv6 tiene una longitud fija de 40 octetos, que consta de los siguientes campos:
+
+![image](https://github.com/user-attachments/assets/81aab859-286c-4a5f-bb42-c4055ba8aecf)
