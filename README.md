@@ -62,14 +62,44 @@ Un IS utilizado para conectar dos redes que pueden o no ser similares. El dispos
 
 ### El Protocolo Internet (IP)
 
-Es parte del conjunto de protocolos TCP/IP. IP ofrece un servicio en el que cada paquete (o datagrama) se trata de forma independiente, sin establecer previamente una conexión dedicada entre el origen y el destino. Se corresponde con el mecanismo de operación no orientado a conexión. En cada dispositivo de encaminamiento se toma una decisión de encaminamiento (independientemente para cada unidad de datos) relativa al siguiente salto.
+Es parte del conjunto de protocolos TCP/IP. IP ofrece un servicio en el que cada paquete (o datagrama) se trata de forma independiente, sin establecer previamente una conexión dedicada entre el origen y el destino. Se corresponde con el mecanismo de operación no orientado a conexión. En cada dispositivo de encaminamiento se toma una decisión de encaminamiento (independientemente para cada unidad de datos) relativa al siguiente salto.  
+
 Para que el protocolo de interconexión funcione correctamente, es necesario disponer de un protocolo adicional que permita acceder a cada red particular:
-- Una subcapa superior que se encarga de la interconexión entre redes (funciones lógicas de encaminamiento, por ejemplo, utilizando IP).
-- Una subcapa inferior que se encarga del acceso a la red concreta (por ejemplo, Ethernet), proporcionando el mecanismo físico y de enlace de datos para transmitir la información.
-  
+
+- **Una subcapa superior** que se encarga de la interconexión entre redes (funciones lógicas de encaminamiento, por ejemplo, utilizando IP).  
+- **Una subcapa inferior** que se encarga del acceso a la red concreta (por ejemplo, Ethernet), proporcionando el mecanismo físico y de enlace de datos para transmitir la información.  
+
+
 ### IPv4
-Los servicios a proporcionar entre las capas de protocolos adyacentes (por ejemplo, entre IP y TCP) se expresan en términos de primitivas y parámetros.
-Una primitiva especifica la función que se va a ofrecer y los parámetros se utilizan para pasar datos e información de control. IP proporciona dos primitivas de servicio en la interfaz con la capa superior: La primitiva Send (envío) se utiliza para solicitar la transmisión de una unidad de datos. La primitiva Deliver (entrega) utiliza IP para notificar a un usuario la llegada de una unidad de datos. Los parámetros asociados a estas dos primitivas son los siguientes:
+
+Los servicios a proporcionar entre las capas de protocolos adyacentes (por ejemplo, entre IP y TCP) se expresan en términos de **primitivas y parámetros**.  
+Una primitiva especifica la función que se va a ofrecer y los parámetros se utilizan para pasar datos e información de control.  
+
+IP proporciona dos primitivas de servicio en la interfaz con la capa superior:  
+
+- **Send (envío):** Se utiliza para solicitar la transmisión de una unidad de datos.  
+- **Deliver (entrega):** Utiliza IP para notificar a un usuario la llegada de una unidad de datos.  
+
+Los parámetros asociados a estas primitivas son los siguientes:
+
+- **Dirección origen:** Dirección global de red de la entidad IP que envía la unidad de datos.  
+- **Dirección destino:** Dirección global de red de la entidad IP de destino.  
+- **Protocolo:** Entidad de protocolo receptor (un usuario IP, como por ejemplo TCP).  
+- **Indicadores del tipo de servicio:** Especifica el tratamiento de la unidad de datos en su transmisión a través de los componentes de las redes.  
+- **Identificador:** Se utiliza en combinación con las direcciones origen y destino y el protocolo usuario para identificar de forma única la unidad de datos. Es necesario para reensamblar e informar de errores.  
+- **Indicador de no fragmentación:** Indica si IP puede fragmentar los datos para realizar el transporte.  
+- **Tiempo de vida:** Medido en segundos.  
+- **Longitud de los datos:** Longitud de los datos que se transmiten.  
+- **Datos de opción:** Opciones solicitadas por el usuario IP.  
+- **Datos:** Datos de usuario que se van a transmitir.  
+
+> **Nota:** Los parámetros **identificador**, **indicador de no fragmentación** y **tiempo de vida** están presentes en la primitiva `Send`, pero no en la primitiva `Deliver`, ya que proporcionan instrucciones a IP que no son de la incumbencia del usuario IP destino.  
+
+
+
+### Cabecera IPv4  
+
+A continuación, se muestra la estructura de la cabecera de un paquete IPv4:
 
 ![image](https://github.com/user-attachments/assets/8e63f1a5-af18-4ab1-8ad6-012eeffe8763)
 
