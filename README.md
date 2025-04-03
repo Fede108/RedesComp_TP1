@@ -424,6 +424,32 @@ Aquí se accede a la terminal de PuTTY y mediante el comando enable y se ingresa
 Luego se accede al modo de configuración global donde se cambia la contraseña de la consola
 ![image](https://github.com/user-attachments/assets/80fe12b0-1c5a-4ca8-b176-3adc61a89e27)
 
+c)
+Lo realizado en este punto fue:
+1. Conectar dos computadoras a los puertos FastEthernet del switch
+2. Asignar IP estáticas a cada computadora
+
+![image](https://github.com/user-attachments/assets/82ac68cd-f8d2-41fd-b636-9cd1b9f859e6)
+
+3. Se verifica conectividad mediante el comando ping
+
+![image](https://github.com/user-attachments/assets/86d39cd8-777e-4d6c-be1f-12f8a69d6c4f)
+
+![image](https://github.com/user-attachments/assets/6fce6bf2-6bfd-4754-8159-cc5194fa7339)
+
+d)
+Lo que se hizo en este punto fue la configuración de mirroring de puertos para monitoreo:
+
+1. Se accede al modo de configuración global mediante el comando configure terminal
+2. Luego se configura el puerto origen y el puerto destino del tráfico
+
+![image](https://github.com/user-attachments/assets/12fbb68f-0ce2-4341-951c-0a51fdf91969)
+
+3)
+Esta captura fue tomada desde wireshark en la que se puede observar el tráfico ICMP, en la que se hace la solicitud de ping mediante “echo request” desde la PC con la IP  169.254.125.248 hacia la PC con la IP 169.254.125.25 y luego se da la respuesta mediante “echo reply” donde se observa que la PC destino recibió los paquetes.
+
+![image](https://github.com/user-attachments/assets/2214d8ce-1b9e-4a9c-a938-bd0e2bee8346)
+
 
 
 
