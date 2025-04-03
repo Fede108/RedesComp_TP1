@@ -387,8 +387,26 @@ En IPv6 el broadcast del IPv4 se reemplaza por el uso del multicast o unicast pa
 
 - Global: Son direcciones públicas que se usan para acceder a dispositivos en Internet desde cualquier parte del mundo.
 
+PARTE PRÁCTICA:
+Características principales del switch Cisco
+
+Los switches Cisco Catalyst son dispositivos de red utilizados en entornos empresariales debido a su alta fiabilidad y rendimiento. A continuación, se presentan algunas de sus características más relevantes:
+Rendimiento y capacidad: Capacidad de switching de hasta 216 Gbps y una tasa de reenvío de hasta 107.1 Mpps, dependiendo del modelo.
 
 
+Puertos: Disponibilidad de 24 o 48 puertos Gigabit Ethernet, con opciones de enlaces ascendentes de 1G y 10G SFP+.
+
+
+Apilamiento: Soporta tecnología FlexStack-Plus, permitiendo apilar hasta 8 switches con un ancho de banda de apilamiento de 80 Gbps.
+
+
+Eficiencia energética: Utiliza Cisco EnergyWise para reducir el consumo energético y mejorar la eficiencia.
+
+
+Seguridad: Implementa autenticación 802.1X, listas de control de acceso (ACL) y protección contra ataques DoS.
+
+
+Calidad de servicio (QoS): Permite la priorización del tráfico crítico para garantizar un rendimiento óptimo de las aplicaciones.
   
 
 
