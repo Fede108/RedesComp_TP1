@@ -422,6 +422,9 @@ Lo realizado en este punto fue:
 Aquí se accede a la terminal de PuTTY y mediante el comando enable y se ingresa al modo privilegiado
 
 Luego se accede al modo de configuración global donde se cambia la contraseña de la consola
+![image](https://github.com/user-attachments/assets/80fe12b0-1c5a-4ca8-b176-3adc61a89e27)
+
+
 
 
 
