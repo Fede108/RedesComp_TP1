@@ -388,7 +388,8 @@ En IPv6 el broadcast del IPv4 se reemplaza por el uso del multicast o unicast pa
 - Global: Son direcciones públicas que se usan para acceder a dispositivos en Internet desde cualquier parte del mundo.
 
 PARTE PRÁCTICA:
-Características principales del switch Cisco
+
+## Características principales del switch Cisco
 
 Los switches Cisco Catalyst son dispositivos de red utilizados en entornos empresariales debido a su alta fiabilidad y rendimiento. A continuación, se presentan algunas de sus características más relevantes:
 Rendimiento y capacidad: Capacidad de switching de hasta 216 Gbps y una tasa de reenvío de hasta 107.1 Mpps, dependiendo del modelo.
@@ -407,6 +408,17 @@ Seguridad: Implementa autenticación 802.1X, listas de control de acceso (ACL) y
 
 
 Calidad de servicio (QoS): Permite la priorización del tráfico crítico para garantizar un rendimiento óptimo de las aplicaciones.
+
+a)
+
+Lo realizado en este punto fue:
+
+1. Conectar el cable de consola al puerto serial de la PC y al puerto consola del switch.
+2. Dentro de PuTTY seleccionar la opción serial y configurar los parámetros correspondientes.
+3. Una vez configurado los parámetros se da acceso a la administración del switch y cambio de claves
+
+
+
   
 
 
