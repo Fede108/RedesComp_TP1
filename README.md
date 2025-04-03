@@ -343,13 +343,7 @@ Aquí se observan los distintos tipos de mensajes NDP en la simulación:
 
 ## b) ¿NDP reemplaza a ARP?
 
-Sí, **NDP reemplaza a ARP** en redes IPv6.  
-Mientras que **ARP** se usa en IPv4 para mapear direcciones IP a direcciones MAC en redes locales, **NDP** realiza funciones similares en IPv6, con mejoras adicionales como:
-- **Detección de direcciones duplicadas (DAD)**
-- **Descubrimiento de routers**
-- **Autoconfiguración de direcciones**
-
-Gracias a estas mejoras, **NDP es más avanzado y eficiente** que ARP.
+NDP sí reemplaza a ARP, ya que IPv6 reemplaza a IPv4. ARP se utiliza en redes IPv4 para mapear direcciones IP a direcciones MAC dentro de una red local. En cambio, NDP realiza una función similar en redes IPv6, pero con capacidades adicionales, como la detección de duplicados de direcciones, el descubrimiento de routers y la autoconfiguración de direcciones, lo que lo hace más avanzado que ARP.
 
 ---
 
@@ -381,27 +375,18 @@ Las funciones de **NDP (Neighbor Discovery Protocol)** incluyen:
 
 ## d) ¿Cómo se reemplaza la función de broadcast en IPv6?
 
-En **IPv6**, la función de **broadcast** de IPv4 ha sido eliminada y reemplazada por **multicast** y **unicast** para mejorar la eficiencia de la red y reducir la congestión.
-
-### **Razones del cambio**:
-- El **broadcast** envía mensajes a todos los dispositivos de la red, generando tráfico innecesario y disminuyendo el rendimiento.
-- En **IPv6**, en lugar de broadcast:
-  - **Multicast** envía mensajes solo a un grupo específico de dispositivos.  
-  - **Unicast** permite la comunicación directa entre dos dispositivos.
-
-Esto mejora la seguridad y el rendimiento de la red.
+En IPv6 el broadcast del IPv4 se reemplaza por el uso del multicast o unicast para mejorar la eficiencia de la red y reducir la congestión. Esto se debe a que el broadcast envía mensajes a todos los dispositivos de la red generando tráfico innecesario, empeorando el rendimiento y genera poca seguridad. En cambio en el IPv6, el multicast envía mensajes a un grupo de dispositivos y el unicast envía mensajes a un solo dispositivo de la red.
 
 ---
 
 ## e) ¿Cuál es la diferencia entre las direcciones link-local, unique-local y global? ¿En qué caso usaría cada una? Ejemplificar.
 
-### **1. Link-local (`FE80::/10`)**
-- Se usan **solo dentro de la misma red local** (LAN).
-- Se asignan automáticamente a todas las interfaces IPv6.
-- **No se pueden enrutar fuera del enlace**.
-- **Ejemplo de uso**: Comunicación entre dispositivos en una misma red sin necesidad de configuración.
+- Link-local: Son direcciones usadas solo para comunicarse dentro de la misma red local, como en una casa o una oficina.
 
-**Ejemplo de dirección link-local:**  
+- Unique-local: Son direcciones privadas para redes internas, como las de empresas, oficinas o redes caseras, y no se pueden usar en Internet.
+
+- Global: Son direcciones públicas que se usan para acceder a dispositivos en Internet desde cualquier parte del mundo.
+
 
 
   
