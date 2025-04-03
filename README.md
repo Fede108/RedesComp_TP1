@@ -417,6 +417,13 @@ Lo realizado en este punto fue:
 2. Dentro de PuTTY seleccionar la opción serial y configurar los parámetros correspondientes.
 3. Una vez configurado los parámetros se da acceso a la administración del switch y cambio de claves
 
+![image](https://github.com/user-attachments/assets/54e91ebd-b707-408f-a40b-921b5f15d3e1)
+
+Aquí se accede a la terminal de PuTTY y mediante el comando enable y se ingresa al modo privilegiado
+
+Luego se accede al modo de configuración global donde se cambia la contraseña de la consola
+
+
 
 
   
