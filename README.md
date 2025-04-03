@@ -69,6 +69,7 @@ Para que el protocolo de interconexión funcione correctamente, es necesario dis
 - **Una subcapa superior** que se encarga de la interconexión entre redes (funciones lógicas de encaminamiento, por ejemplo, utilizando IP).  
 - **Una subcapa inferior** que se encarga del acceso a la red concreta (por ejemplo, Ethernet), proporcionando el mecanismo físico y de enlace de datos para transmitir la información.  
 
+---
 
 ### IPv4
 
@@ -102,6 +103,8 @@ Los parámetros asociados a estas primitivas son los siguientes:
 A continuación, se muestra la estructura de la cabecera de un paquete IPv4:
 
 ![image](https://github.com/user-attachments/assets/8e63f1a5-af18-4ab1-8ad6-012eeffe8763)
+
+---
 
 ### IPv6
 El motivo que ha conducido a la adopción de una nueva versión ha sido la limitación impuesta por el campo de dirección de 32 bits en IPv4. Algunas de las razones por las que es inadecuado utilizar estas direcciones de 32 bits son las siguientes:
@@ -144,3 +147,267 @@ Paquete IPv6 con un ejemplar de cada cabecera:
 La cabecera IPv6 tiene una longitud fija de 40 octetos, que consta de los siguientes campos:
 
 ![image](https://github.com/user-attachments/assets/81aab859-286c-4a5f-bb42-c4055ba8aecf)
+
+---
+
+### PROTOCOLO DE MENSAJES DE CONTROL DE INTERNET (ICMP)
+
+ICMP transfiere mensajes de error y diagnóstico entre dispositivos de red. Se envía en respuesta a un datagrama y proporciona información de realimentación sobre problemas de comunicación.
+
+## Características de ICMP
+
+- **Ubicación en la pila de protocolos**: ICMP está al mismo nivel que IP pero actúa como usuario de IP.  
+- **Encapsulación**: ICMP se encapsula dentro de un datagrama IP, por lo que no garantiza su entrega.  
+
+## Formato de mensaje ICMP
+
+Cada mensaje ICMP contiene:
+
+- **Tipo (8 bits)**: especifica el tipo de mensaje.  
+- **Código (8 bits)**: parámetros codificados del mensaje.  
+- **Suma de comprobación (16 bits)**: validación de integridad.  
+- **Parámetros (32 bits)**: información adicional.  
+
+Los mensajes ICMP se utilizan para indicar errores de entrega, notificar problemas de red y realizar diagnósticos, como con el comando `ping`.
+
+# Primer parte:
+
+## 2) Construir el diagrama de red propuesto en el software de simulación/emulación elegido.
+Usamos el software de simulacion Packet Tracer:
+
+![image](https://github.com/user-attachments/assets/5ad5ee69-d85c-4450-9cb7-350720e6714c)
+
+
+
+## 3) ¿Que diferencias que tienen los simuladores y los emuladores en el contexto de redes?
+Las diferencias que tienen los simuladores y los emuladores en el contexto de redes se basan en cómo representan el comportamiento de una red real.
+Un simulador de redes reproduce el comportamiento de una red en base a modelos matemáticos y lógicos, sin la ejecución de software real de dispositivos de red. La ventaja es que permite probar configuraciones sin equipos físicos. Se usa para la investigación y la educación. Un claro ejemplo de un simulador de redes es Packet Tracer.
+En cambio un emulador de redes recrea una red real usando software original (como el de routers y switches), lo que permite probar configuraciones de forma más precisa. Se puede conectar con dispositivos físicos, esto genera que sea más preciso pero la desventaja es que requiere más recursos. A diferencia del simulador de redes, el emulador se usa para pruebas de rendimiento y depuración en entornos cercanos a la realidad. Un ejemplo es el software GNS3, que es propuesto para realizar esta actividad también.
+
+
+
+## 4) Evaluar conectividad entre todos los host enviando 3 (tres) paquetes ICMPv4, utilizando el comando `ping` para IPv4.
+
+- Conexión de h1 a h2:
+  
+ ![image](https://github.com/user-attachments/assets/ba511464-1d8c-45c8-bcab-a73415df273e)
+
+- Conexión de h1 a h3:
+  
+ ![image](https://github.com/user-attachments/assets/f0cf37d0-307f-4d49-9c29-91b1548ca947)
+
+
+
+## 5) Evaluar conectividad entre todos los host enviando 3 (tres) paquetes ICMPv6, utilizando el comando `ping6` para IPv6.
+
+- Conexión entre h1 y h2:
+  
+ ![image](https://github.com/user-attachments/assets/048fa9d5-875c-4cba-be7c-5c47f0657b02)
+ 
+- Conexión entre h1 y h3:
+
+![image](https://github.com/user-attachments/assets/2d041322-21ba-4243-8177-5e7db8fe107c)
+
+## 6) Iniciar tráfico ICMP en el Cliente 1 con destino Cliente 2. Analizar tráfico sobre las dos redes, capturar screenshots y responder las siguientes preguntas:
+### a) ¿Cuáles son las comunicaciones ARP que observan? Explicar y ejemplificar con capturas cómo funciona la traducción de direcciones lógicas a direcciones físicas
+
+
+Antes de enviar un paquete IP a un destino en la misma red, el dispositivo origen necesita conocer la MAC de ese destino (o la MAC de su Gateway si el destino está en otra red). ARP permite que un dispositivo descubra la dirección física (MAC) asociada a una dirección lógica (IP).  
+
+![image](https://github.com/user-attachments/assets/c0fb92c6-344a-4a35-b335-56cecaa47826)
+
+En este caso, el Cliente 1 (PC0) detecta que Cliente 2 (PC1) con IP `192.168.2.10` está fuera de su red `192.168.1.0/24`. El PC revisa su tabla de enrutamiento y ve que el siguiente salto (*next-hop*) es la IP del router, `192.168.1.11`.  
+
+Se envía una trama Ethernet con destino `FF:FF:FF:FF:FF:FF` (broadcast) preguntando:  
+> “¿Quién tiene la IP `192.168.1.11`? Responder a `192.168.1.10`”.
+
+El dispositivo con esa IP (Router0) recibe el broadcast, reconoce su IP y responde con un ARP Reply:  
+> “La IP `192.168.1.11` está asociada a la MAC `00:11:22:33:44:55`”.
+
+Una vez que el PC origen encapsula el paquete IP con la MAC del router, este recibe el paquete y lo reenvía hacia la red `192.168.2.0/24`. Para esto, el router envía otra trama para conocer la dirección MAC del Cliente 2 (PC1).  
+
+El campo **Type: `0x0806`** en la parte Ethernet del PDU indica que se trata de una ARP.  
+El **Target MAC**: normalmente `00:00:00:00:00:00` en el Request, es porque aún no se conoce la dirección MAC de destino.
+
+
+
+Una vez que el PC origen encapsula el paquete IP con MAC del router, el router recibe el paquete y lo reenvía hacia la red 192.168.2.0/24. Para esto el router envía otra trama para conocer la dirección MAC del cliente 2 (PC1).
+
+![image](https://github.com/user-attachments/assets/3aa01845-cf36-4c01-a7ca-7930f879902d)
+
+El campo type: 0x0806 en la parte Ethernet del PDU indica que se trata de una ARP. El Target MAC: normalmente 00:00:00:00:00:00 en el Request, es porque no se sabe aún la dirección.
+
+---
+
+### b) ¿Cuáles son las direcciones IP en los datagramas? Indicar con un ejemplo.
+
+Cuando se envía el mensaje ICMP, este se pasa a IP, que lo encapsula con una cabecera IP y lo transmite de la forma habitual.  
+- **Dirección IP de origen**: Cliente 1 (PC0).  
+- **Dirección IP de destino**: Cliente 2 (PC1).  
+
+![image](https://github.com/user-attachments/assets/2e1046bd-525c-4b4b-b00a-f5c29d4fc3f1)
+
+---
+
+### c) ¿Cómo determina el enrutador la comunicación entre un host y otro?
+
+El enrutador encamina los paquetes basándose en direcciones lógicas (IP) usando **tablas de enrutamiento**, que mantiene actualizadas para determinar la mejor ruta hacia cada destino.
+
+
+---
+
+## d) ¿Para qué usamos el switch? ¿Por qué el switch no tiene asignadas direcciones IP en sus interfaces?
+
+El **switch** es utilizado para conectar dos redes LAN que utilizan el mismo protocolo LAN. Actúa como un **filtro de direcciones**, recogiendo paquetes de una LAN que van dirigidos a otra y reenviándolos sin modificar su contenido.  
+
+El switch **mantiene una tabla de direcciones MAC** para cada uno de sus puertos. Cuando recibe una trama, consulta su tabla para decidir a qué puerto reenviarla o si descartarla.  
+
+**Motivo por el cual no tiene IP en sus interfaces:**  
+El switch opera en la **Capa 2 (Enlace de Datos)** del modelo OSI, usando direcciones MAC para el reenvío de tramas. Por esta razón, **sus interfaces no requieren direcciones IP** para el proceso de conmutación.
+
+---
+
+## e) ¿Qué datos contiene la tabla ARP de h1?
+Contiene las asociaciones entre direcciones IP y MAC conocidas por `h1`. En este caso, incluiría:  
+
+  ![image](https://github.com/user-attachments/assets/ef63a83c-ceb2-4aeb-84ff-ba38cb55d0a7)
+
+
+---
+
+## f) ¿Qué datos contiene la tabla ARP de h3?
+Contiene las asociaciones de direcciones IP y MAC conocidas por `h3`, como:  
+
+![image](https://github.com/user-attachments/assets/7887f1df-c3ea-48f8-a6e3-99adfd5acc3d)
+
+
+---
+
+## g) ¿Qué datos contiene la tabla ARP del router?
+El router mantiene registros de los dispositivos en ambas redes, por lo que su tabla ARP incluirá:  
+- **IP y MAC del Cliente 1 (PC0)**.  
+- **IP y MAC del Cliente 2 (PC1)**.  
+- **IP y MAC de otros dispositivos conectados en ambas redes**.
+
+![image](https://github.com/user-attachments/assets/f737716b-b7fa-4399-bbe1-babeeac0dbdb)
+
+
+---
+
+## h) ¿Qué son las direcciones de broadcast en IPv4? ¿Cuál es su utilidad?
+
+Las direcciones de **broadcast** permiten enviar un mensaje a **todos los dispositivos** en una red.  
+**Ejemplo común**: `255.255.255.255`, que envía un mensaje a todos los dispositivos de la red local.  
+
+### **Utilidad**
+Facilitan la comunicación masiva sin necesidad de conocer cada dirección individual. Se usan en protocolos como:  
+- **ARP Request** para resolución de direcciones.  
+- **Mensajes de descubrimiento de red**.  
+- **Envío de alertas o notificaciones en redes locales**.
+
+---
+
+## i) ¿Qué son las direcciones de multicast en IPv4? ¿Cuál es su utilidad?
+
+Las direcciones **multicast** permiten enviar datos a **un grupo específico de dispositivos** en una red en lugar de a todos (como en broadcast).  
+
+- **Rango de direcciones multicast**: `224.0.0.0` a `239.255.255.255`.  
+- **Ejemplos de uso**:
+  - Videoconferencias.
+  - Transmisión de datos en tiempo real (streaming).
+  - Protocolos como **IGMP (Internet Group Management Protocol)** para gestionar grupos multicast.
+
+
+# 7) Análisis de comunicaciones NDP
+
+## a) ¿Cuáles son las comunicaciones NDP que suceden? 
+
+Identifique los distintos tipos de mensajes NDP haciendo foco en las direcciones IP de origen y destino de cada uno.
+
+Existen dos tipos de comunicaciones NDP que suceden en esta situación:
+1. **Cuando una PC envía paquetes a otra dentro de la misma red.**
+2. **Cuando una PC debe enviar paquetes fuera de su red y necesita encontrar un router.**
+
+Aquí se observan los distintos tipos de mensajes NDP en la simulación:
+
+![image](https://github.com/user-attachments/assets/e956d03e-7967-4775-bfbd-1ed67030502d)
+
+![image](https://github.com/user-attachments/assets/82f901e8-0e1c-4ce5-a1db-ec716b82284f)
+
+![image](https://github.com/user-attachments/assets/47aceaf2-298f-4d6e-98a2-631e911818c1)
+
+![image](https://github.com/user-attachments/assets/54c6a497-5294-49a4-959a-3ffce7c8ab18)
+
+
+---
+
+## b) ¿NDP reemplaza a ARP?
+
+Sí, **NDP reemplaza a ARP** en redes IPv6.  
+Mientras que **ARP** se usa en IPv4 para mapear direcciones IP a direcciones MAC en redes locales, **NDP** realiza funciones similares en IPv6, con mejoras adicionales como:
+- **Detección de direcciones duplicadas (DAD)**
+- **Descubrimiento de routers**
+- **Autoconfiguración de direcciones**
+
+Gracias a estas mejoras, **NDP es más avanzado y eficiente** que ARP.
+
+---
+
+## c) Describir las funciones de NDP
+
+Las funciones de **NDP (Neighbor Discovery Protocol)** incluyen:
+
+- **Descubrimiento de vecinos**:  
+  Permite resolver direcciones IPv6 en direcciones MAC mediante los mensajes:
+  - **NS (Neighbor Solicitation)**  
+  - **NA (Neighbor Advertisement)**  
+
+- **Descubrimiento de routers**:  
+  Un host puede encontrar routers en la red local mediante:
+  - **RS (Router Solicitation)**  
+  - **RA (Router Advertisement)**  
+
+- **Resolución de direcciones**:  
+  Un host usa un **NS** para preguntar por la dirección MAC de una IP, y recibe un **NA** con la respuesta.
+
+- **Detección de direcciones duplicadas (DAD - Duplicate Address Detection)**:  
+  Un host envía un **NS** para verificar si otra máquina ya usa la misma dirección IPv6.  
+  - Si recibe un **NA**, significa que la dirección está ocupada.
+
+- **Redirección de tráfico**:  
+  A través de un **Redirect Message**, un router puede indicar a un host una mejor ruta hacia un destino.
+
+---
+
+## d) ¿Cómo se reemplaza la función de broadcast en IPv6?
+
+En **IPv6**, la función de **broadcast** de IPv4 ha sido eliminada y reemplazada por **multicast** y **unicast** para mejorar la eficiencia de la red y reducir la congestión.
+
+### **Razones del cambio**:
+- El **broadcast** envía mensajes a todos los dispositivos de la red, generando tráfico innecesario y disminuyendo el rendimiento.
+- En **IPv6**, en lugar de broadcast:
+  - **Multicast** envía mensajes solo a un grupo específico de dispositivos.  
+  - **Unicast** permite la comunicación directa entre dos dispositivos.
+
+Esto mejora la seguridad y el rendimiento de la red.
+
+---
+
+## e) ¿Cuál es la diferencia entre las direcciones link-local, unique-local y global? ¿En qué caso usaría cada una? Ejemplificar.
+
+### **1. Link-local (`FE80::/10`)**
+- Se usan **solo dentro de la misma red local** (LAN).
+- Se asignan automáticamente a todas las interfaces IPv6.
+- **No se pueden enrutar fuera del enlace**.
+- **Ejemplo de uso**: Comunicación entre dispositivos en una misma red sin necesidad de configuración.
+
+**Ejemplo de dirección link-local:**  
+
+
+  
+
+
+
+
+
+
